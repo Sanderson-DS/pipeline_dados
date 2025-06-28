@@ -46,6 +46,7 @@ def connect_mysql(host_name, user_name, pw):
         print("⚠️ Erro inesperado:")
         print(ex)
 
+    return cnx
 
 # 2 - create_cursor(cnx): cria e retorna um cursor, que serve para conseguirmos executar os comandos SQL, utilizando a conexão fornecida como argumento.
 
@@ -63,7 +64,7 @@ def create_cursor(cnx):
 
 def create_database(cursor, db_name):
     try:
-        cursor.execute('CREATE DATABASE IF NOT EXISTS dbprodutos;')
+        cursor.execute(f'CREATE DATABASE IF NOT EXISTS {db_name};')
         print(f"✅ Banco de dados '{db_name}' criado com sucesso!")
     except Error as e:
         print(f"❌ Erro ao criar o banco de dados '{db_name}':")
@@ -88,7 +89,7 @@ def create_product_table(cursor, db_name, tb_name):
     try:
         cursor.execute(f"USE {db_name};")
         cursor.execute(f"""
-            create table if not exists dbprodutos.tb_livros(
+            create table if not exists {db_name}.{tb_name}(
                     id VARCHAR(100),
                     Produto VARCHAR(100),
                     Categoria_Produto VARCHAR(100),
@@ -140,14 +141,16 @@ def read_csv(path):
         print(f"❌ Erro ao ler o arquivo '{path}':")
         print(e)
         return None
+
     
 # 8 - add_product_data(cnx, cursor, df, db_name, tb_name): insere os dados do DataFrame fornecido à tabela especificada no banco de dados especificado. 
 # A função deve usar o cursor para executar o comando SQL de inserção de dados.
 
 def add_product_data(cnx, cursor, df, db_name, tb_name):
     try:
+       cursor.execute(f"truncate table {tb_name};")
        lista_dados = [tuple(row) for i, row in df.iterrows()]
-       sql = 'insert into {db_name}.{tb_name} (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);'
+       sql = f'insert into {db_name}.{tb_name} values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);'
        cursor.executemany(sql, lista_dados)
        cnx.commit()
        print(f"✅ Dados inseridos com sucesso na tabela '{tb_name}' do banco de dados '{db_name}'!")
@@ -155,26 +158,29 @@ def add_product_data(cnx, cursor, df, db_name, tb_name):
         print(f"❌ Erro ao inserir dados na tabela '{tb_name}' do banco de dados '{db_name}':")
         print(e)    
 
+if __name__ == "__main__":
 
-#conectar ao servidor MySQL;
-cnx = connect_mysql(host, user, password)
+    #conectar ao servidor MySQL;
+    cnx = connect_mysql(host, user, password)
 
-# criar um cursor;
+    # criar um cursor;
+    cursor = create_cursor(cnx)
 
-
-# criar um banco de dados chamado "db_produtos_teste";
-
-
-# exibir todos os bancos de dados existentes;
-
-
-# criar uma tabela chamada "tb_livros" no banco de dados criado;
+    # criar um banco de dados chamado "db_produtos_teste";
+    create_database(cursor, "database_produtos")
 
 
-# exibir todas as tabelas no banco de dados criado;
+    # exibir todos os bancos de dados existentes;
+    show_databases(cursor)
 
+    # criar uma tabela chamada "tb_livros" no banco de dados criado;
+    create_product_table(cursor, "database_produtos", "tb_livros")
 
-# ler os dados do arquivo csv "tb_livros.csv";
+    # exibir todas as tabelas no banco de dados criado;
+    show_tables(cursor, "database_produtos")
 
+    # ler os dados do arquivo csv "tb_livros.csv";
+    df = read_csv("../data/tabela_livros.csv")
 
-# adicionar os dados lidos à tabela criada.
+    # adicionar os dados lidos à tabela criada.
+    add_product_data(cnx, cursor, df,  "database_produtos" , "tb_livros")
