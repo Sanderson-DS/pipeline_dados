@@ -1,6 +1,6 @@
 # 🧠 Pipeline de Dados com API, MongoDB e MySQL
 
-Projeto educacional que demonstra o processo completo de extração, transformação e carregamento de dados (ETL) usando Python. Os dados são coletados de uma API, transformados e salvos em bancos de dados MongoDB e MySQL.
+Projeto educacional que demonstra o processo completo de extração, transformação e carregamento de dados (ETL) usando Python. Os dados são coletados de uma API, transformados com Pandas e armazenados em bancos de dados MongoDB e MySQL.
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -15,49 +15,62 @@ Projeto educacional que demonstra o processo completo de extração, transforma�
 
 ## 📁 Estrutura do Projeto
 
-├── data/ # Dados brutos ou processados
-├── notebooks/ # Jupyter Notebooks de análise e transformação
-├── scripts/ # Scripts Python automatizados (ETL)
-├── .gitignore # Arquivos/pastas ignorados pelo Git
-├── requirements.txt # Dependências do projeto
-
+```
+├── aulas/               # Anotações e materiais de aula (.md)
+├── data/                # Dados brutos ou processados
+├── notebooks/           # Jupyter Notebooks de análise e transformação
+├── scripts/             # Scripts Python automatizados (ETL)
+├── .gitignore           # Arquivos/pastas ignorados pelo Git
+├── requirements.txt     # Dependências do projeto
+```
 
 ## ⚙️ Como executar o projeto
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   cd seu-repositorio
-   
+   git clone https://github.com/Sanderson-DS/pipeline-de-dados.git
+   cd pipeline-de-dados
+   ```
+
 2. Crie um ambiente virtual e ative:
-  python -m venv venv
-  source venv/bin/activate  # ou .\venv\Scripts\activate no Windows
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Linux/macOS
+   .\venv\Scripts\activate   # Windows
+   ```
 
-3.Instale as dependências:
-pip install -r requirements.txt
+3. Instale as dependências:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-4. Configure suas variáveis de ambiente em um arquivo .env, como:
-  MONGO_URI=...
-  MYSQL_HOST=...
-  MYSQL_USER=...
-  MYSQL_PASSWORD=...
-  MYSQL_DATABASE=...
+4. Crie um arquivo `.env` com suas configurações de ambiente:
+   ```
+   MONGO_URI=seu_uri_mongodb
+   MYSQL_HOST=localhost
+   MYSQL_USER=seu_usuario
+   MYSQL_PASSWORD=sua_senha
+   MYSQL_DATABASE=nome_do_banco
+   ```
 
-5.Execute os notebooks ou scripts conforme desejado.
+5. Execute os notebooks ou scripts Python conforme necessário.
 
-🧪 Funcionalidades
-Conexão segura com MongoDB Atlas e MySQL
+## 🧪 Funcionalidades
 
-Extração de dados via API
+- Conexão com MongoDB Atlas e MySQL
+- Extração de dados via API
+- Transformação e limpeza com Pandas
+- Armazenamento estruturado dos dados
+- Scripts reutilizáveis e notebooks explicativos
 
-Transformação de dados com Pandas
+## ✍️ Autor
 
-Armazenamento em múltiplos bancos de dados
+**Sanderson Bergmann**  
+🔗 [LinkedIn](https://www.linkedin.com/in/sanderson-bergmann)  
+💻 [GitHub](https://github.com/Sanderson-DS)
 
-✍️ Autor
-Sanderson Bergmann
-LinkedIn - https://www.linkedin.com/in/sanderson-bergmann/
+---
 
+## 📌 Licença
 
-
-
+Este projeto é livre para uso educacional e pessoal. Sinta-se à vontade para contribuir ou adaptar!
