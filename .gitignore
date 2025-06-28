@@ -2,7 +2,7 @@
 venv/
 
 # Dados (caso contenha dados sensíveis ou pesados — ajuste conforme necessário)
-data/
+aulas/
 
 # Notebooks checkpoints
 **/.ipynb_checkpoints/
