@@ -16,7 +16,7 @@ Projeto educacional que demonstra o processo completo de extração, transforma�
 ## 📁 Estrutura do Projeto
 
 ```
-├── aulas/               # Anotações e materiais de aula (.md)
+
 ├── data/                # Dados brutos ou processados
 ├── notebooks/           # Jupyter Notebooks de análise e transformação
 ├── scripts/             # Scripts Python automatizados (ETL)
